@@ -1,0 +1,9 @@
+1. select count(nombre) as conteo from pelicula;
+2. select count(distinct anho) as conteo from pelicula;
+3. select * from pelicula p where (p.nombre, p.anho, p.calificacion) in (select * from pelicula p0 where (p0.nombre, p0.anho, p0.calificacion) in(select * from pelicula p1 where(p1.nombre, p1.anho, p1.calificacion) in (select * from pelicula p2 order by calificacion desc fetch first 10 rows only) order by p0.calificacion desc) order by p0.nombre) order by p.anho;
+4. select distinct a_nombre from personaje where p_nombre in(select nombre from pelicula order by calificacion desc fetch first 10 rows only);
+5. select distinct a_nombre from personaje where a_nombre in(select nombre from actor where genero='F') and p_nombre in(select nombre from pelicula order by calificacion desc fetch first 10 rows only);
+6. select* from (select anho-anho%10 as decada from pelicula where nombre in (select p_nombre from personaje where a_nombre = 'Buscemi, Steve'))Multi group by decada;
+7. select anho, count(nombre) as conteo from pelicula group by anho order by anho;
+8. select * from (SELECT anho, count(nombre) as conteo from pelicula group by anho)conteo  where conteo >1 order by conteo desc;
+10. select p_nombre, count(*) as conteo from personaje where a_nombre in(select nombre from actor where actor.genero = 'F') group by p_nombre union select nombre as p_nombre, 0 as conteo from pelicula where nombre not in(select p_nombre from personaje where a_nombre in (select nombre from actor where actor.genero = 'F') group by p_nombre);

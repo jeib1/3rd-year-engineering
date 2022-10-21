@@ -1,0 +1,48 @@
+##Integrantes:
+##Juan-B. Espinoza
+##Alejandro Lopez
+
+
+CREATE TABLE superheroes.gajxd_character(
+	id serial primary key,
+	name varchar(300)
+);
+
+CREATE TABLE superheroes.gajxd_superheroe(
+	c_id serial references superheroes.gajxd_character(id),
+	name varchar(300),
+	inteligencia smallint,
+	strength smallint,
+	speed smallint
+);
+
+CREATE TABLE superheroes.grupoajxd_alterego(
+	id primary key,
+	name varchar(50)
+);
+
+CREATE TABLE superheroes.grupoajxd_workocupation(
+	id primary key,
+	name varchar(50)
+);
+
+CREATE TABLE superheroes.grupoajxd_relation(
+	id primary key,
+	name varchar(50)
+);
+
+CREATE TABLE superheroes.grupoajxd_has1(
+	wo_id serial references superheroe.grupoajxd_workocupation(id),
+	c_id serial references superheroe.gajxd_superheroe(c_id)
+);
+
+CREATE TABLE superheroes.grupoajxd_has2(
+	ae_id serial references superheroe.grupoajxd_alterego(id),
+	c_id serial references superheroe.gajxd_superheroe(c_id)
+);
+
+CREATE TABLE superheroes.grupoajxd_relatedto(
+	r_id serial references superheroe.grupoajxd_relation(id),
+	c_id serial references superheroe.gajxd_character(id)
+);
+
